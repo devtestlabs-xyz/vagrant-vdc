@@ -1,5 +1,7 @@
-# Vagrant VNet
-This solution allows users to quickly and easily employ [Hashicorp Vagrant](https://www.vagrantup.com/) to provision a virtual network comprised of _n_ virtual machines for development, testing, research, and learning. This environment was created and tested using Vagrant Virtualbox provider on Windows, Linux, and MacOS hosts.
+# Vagrant Virtual Data Center (VDC)
+This solution allows users to quickly and easily employ [Hashicorp Vagrant](https://www.vagrantup.com/) to provision a local virtual network comprised of _n_ virtual machines and a remote virtual network comprised of _n_ virtual machines. These virtual networks should prove useful for development, testing, research, and learning. This environment was created and tested using Vagrant Virtualbox provider on Windows, Linux, and MacOS hosts.
+
+VirtualBox was chosen as the hypervisor as it runs well on Windows, Linux, and MacOS hosts. VirtualBox also allows you to create an [internal "private" virtual network](https://www.vagrantup.com/docs/virtualbox/networking.html) that comes in handy when evaluating bastion host functionality, ssh tunnel configurations, TCP communications through a SOCKS 5 proxy via SSH tunnel, RDP over SSH, etc.
 
 This project is inspired by Scott Lowe's article, ["An Improved Way to use YAML with Vagrant"](https://blog.scottlowe.org/2016/01/14/improved-way-yaml-vagrant/)
 
@@ -78,6 +80,8 @@ The way in which you reconfigure Vagrant and VirtualBox a slightly different on 
 * https://www.vagrantup.com/docs/
 
 * https://www.virtualbox.org/wiki/Downloads
+
+* https://www.vagrantup.com/docs/virtualbox/networking.html
 
 * https://download.virtualbox.org/virtualbox/6.0.10/VirtualBox-6.0.10-132072-Win.exe
 
