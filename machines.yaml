@@ -1,0 +1,886 @@
+---
+#######################################################
+#
+# Local VNet
+# example.net
+#
+#######################################################
+# Provision as Ansible development workstation
+# https://app.vagrantup.com/ryancraig/boxes/fedora30-dev-ws
+- vagrant_host_name: "fedora30-local-010"
+  ansible_host_name: "my_ansible_dev_ws.example.net"
+  ansible_host_group: ['localhost','ansible_controllers','consul_linux_agents','linux_hosts']
+  vagrant_role: "client-node"
+  vagrant_vb_box: "ryancraig/fedora30-dev-ws"
+  #vagrant_box_version: 
+  #vagrant_box_url: 
+  os_family: linux
+  vagrant_gui_mode: true
+  vagrant_ram: "2048"
+  vagrant_vcpu: "2"
+  local_net_ip_addr: "10.100.60.10"
+ 
+# # Provision as Java development worstation
+# # https://app.vagrantup.com/ryancraig/boxes/fedora30-dev-ws
+# - vagrant_host_name: "fedora30-local-011"
+#   ansible_host_name: "my_java_dev_ws.example.net"
+#   ansible_host_group: ['localhost',consul_agents','linux_hosts']
+#   vagrant_role: "client-node"
+#   vagrant_vb_box: "ryancraig/fedora30-dev-ws"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux203.0.113.102
+#   vagrant_gui_mode: true
+#   vagrant_ram: "4096"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.11"
+
+# Provision as Bastion Host
+# This bastion host allows proxy access to example.com vNet
+# https://app.vagrantup.com/centos/boxes/7    
+- vagrant_host_name: "centos7-local-100"
+  ansible_host_name: "bastion.example.net"
+  ansible_host_group: ['bastion_hosts','linux_hosts']
+  vagrant_role: "bastion-node"
+  vagrant_vb_box: "centos/7"
+  #vagrant_box_version: 
+  #vagrant_box_url: 
+  os_family: linux
+  vagrant_gui_mode: false
+  vagrant_ram: "512"
+  vagrant_vcpu: "1"
+  local_net_ip_addr: "10.100.60.100"
+  remote_net_ip_addr: "192.168.60.100"
+
+#   # Provision as Bastion Host
+# # This bastion host allows proxy access to example.com vNet
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "alpine310-local-100"
+#   ansible_host_name: "bastion.example.net"
+#   ansible_host_group: ['bastion_hosts','linux_hosts']
+#   vagrant_role: "bastion-node"
+#   vagrant_vb_box: "generic/alpine310"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "512"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.100"
+#   remote_net_ip_addr: "192.168.60.100"
+
+# Provision as production-like Ansible Controller (Docker CE and containerized Ansible controllers)
+# https://app.vagrantup.com/centos/boxes/7    
+- vagrant_host_name: "centos7-local-020"
+  ansible_host_name: "ansible_controller_020.example.net"
+  ansible_host_group: ['docker_hosts','ansible_controllers','linux_hosts','ansible_container_hosts']
+  vagrant_role: "client-node"
+  vagrant_vb_box: "centos/7"
+  #vagrant_box_version: 
+  #vagrant_box_url: 
+  os_family: linux
+  vagrant_gui_mode: false
+  vagrant_ram: "2048"
+  vagrant_vcpu: "2"
+  local_net_ip_addr: "10.100.60.20"
+
+# # Provision as AD/DNS Server (Windows Domain Controller) 
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard-core
+# - vagrant_host_name: "win2019-local-009"
+#   ansible_host_name: "dc_009.example.net"
+#   ansible_host_group: ['ad_domain_controllers','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard-core"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.9"
+
+# # Provision as MSSQL Server on Linux
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-030"
+#   ansible_host_name: "mssql_030.example.net"
+#   ansible_host_group: ['mssql_linux_servers','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "4096"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.30"
+
+# # Provision as MSSQL Server  
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-local-031"
+#   ansible_host_name: "mssql_031.example.net"
+#   ansible_host_group: ['mssql_win_servers','consul_win_agents','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "3072"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.31"
+
+# # Provision as MSSQL Server   
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard-core
+# - vagrant_host_name: "win2019-local-032"
+#   ansible_host_name: "mssql_032.example.net"
+#   ansible_host_group: ['mssql_win_servers','consul_win_agents','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard-core"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "3072"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.32"
+
+# # Provision as Kong Application Gateway Server
+# # Application gateway in front of dotNET Core Services hosts (Linux and IIS)
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-040"
+#   ansible_host_name: "api_gateway_040.example.net"Account: melaleuca-newship (136630186178)
+#   ansible_host_group: ['api_gateway_servers','kong_api_gateway_servers','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.40"
+
+# # Provision as Kong Application Gateway Server
+# # Application gateway in front of dotNET Core Services hosts (Linux and IIS)
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-041"
+#   ansible_host_name: "api_gateway_041.example.net"
+#   ansible_host_group: ['api_gateway_servers','kong_api_gateway_servers','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.41"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized dotNet Core Services to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-042"
+#   ansible_host_name: "dnc_docker_host_042.example.net"
+#   ansible_host_group: ['docker_hosts','dnc_api_container_hosts','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.42"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized dotNet Core Services to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-043"
+#   ansible_host_name: "dnc_docker_host_043.example.net"
+#   ansible_host_group: ['docker_hosts','dnc_api_container_hosts','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.43"
+
+# # Provision as IIS Server - Hosts dotNET Core Services  
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-local-044"
+#   ansible_host_name: "dnc_iis_044.example.net"
+#   ansible_host_group: ['consul_agents','dnc_api_iis_servers','iis_servers','consul_win_agents','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.44"  
+
+# # Provision as IIS Server - Hosts dotNET Core Services  
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-local-045"
+#   ansible_host_name: "dnc_iis_045.example.net"
+#   ansible_host_group: ['consul_agents','dnc_api_iis_servers','iis_servers','consul_win_agents','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard-core"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.45"    
+
+# # Provision as HA Proxy server
+# # Load balance WCF IIS Servers
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-050"
+#   ansible_host_name: "wcf_lb_050.example.net"
+#   ansible_host_group: ['haproxy_servers','wcf_load_balancers','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.50"
+
+# # Provision as IIS Server - Hosts WCFs 
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-local-051"
+#   ansible_host_name: "wcf_iis_051.example.net"
+#   ansible_host_group: ['consul_win_agents','wcf_iis_servers','iis_servers','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.51"    
+
+# # Provision as IIS Server - Hosts WCFs 
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-local-052"
+#   ansible_host_name: "wcf_iis_052.example.net"
+#   ansible_host_group: ['consul_win_agents','wcf_iis_servers','iis_servers','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard-core"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.52" 
+
+# # Provision as HA Proxy server
+# # Load balance Legacy Web Servers
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-060"
+#   ansible_host_name: "legacy_web_lb_060.example.net"
+#   ansible_host_group: ['haproxy_servers','legacy_web_load_balancers','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.60"
+
+# # Provision as IIS Server - Hosts Website (Legacy dotNET Framework) 
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-local-061"
+#   ansible_host_name: "legacy_web_iis_061.example.net"
+#   ansible_host_group: ['consul_win_agents','legacy_web_iis_servers','iis_servers','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.61"  
+
+# # Provision as IIS Server - Hosts Website (Legacy dotNET Framework) 
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-local-062"
+#   ansible_host_name: "legacy_web_iis_062.example.net"
+#   ansible_host_group: ['consul_win_agents','legacy_web_iis_servers','iis_servers','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   vagrant_box_version: "1809.0.1907-standard-core"
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   local_net_ip_addr: "10.100.60.62" 
+
+# # Provision as HA Proxy server
+# # Load balance Batch Servers
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-070"
+#   ansible_host_name: "batch_lb_070.example.net"
+#   ansible_host_group: ['haproxy_servers','batch_load_balancers','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.70"
+
+# # Provision as Consul Server Agent
+# # Consul Server (Server #1 - Bootstrap)
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-081"
+#   ansible_host_name: "consul_081.example.net"
+#   ansible_host_group: ['consul_agents','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.81"
+
+# # Provision as Consul Server Agent
+# # Consul Server (Server #2)
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-082"
+#   ansible_host_name: "consul_082.example.net"
+#   ansible_host_group: ['consul_agents','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.82"
+
+# # Provision as Consul Server Agent
+# # Consul Server (Server #3)
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-083"
+#   ansible_host_name: "consul_083.example.net"
+#   ansible_host_group: ['consul_agents','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.83"
+
+# # Provision as Vault Server
+# # Use Consul Servers as datastore backends
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-085"
+#   ansible_host_name: "vault_085.example.net"
+#   ansible_host_group: ['vault_servers','linux_hosts','consul_linux_agents']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.85"
+
+# # Provision as Vault Server
+# # Use Consul Servers as datastore backends
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-086"
+#   ansible_host_name: "vault_086.example.net"
+#   ansible_host_group: ['vault_servers','linux_hosts','consul_linux_agents']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.86"
+
+# # Provision as Vault Server
+# # Use Consul Servers as datastore backends
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-087"
+#   ansible_host_name: "vault_087.example.net"
+#   ansible_host_group: ['vault_servers','linux_hosts','consul_linux_agents']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.87"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized Micronaut Java Services to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-091"
+#   ansible_host_name: "micronaut_docker_host_091.example.net"
+#   ansible_host_group: ['docker_hosts','devops_services_container_hosts','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.91"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized Micronaut Java Services to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-092"
+#   ansible_host_name: "micronaut_docker_host_092.example.net"
+#   ansible_host_group: ['docker_hosts','devops_services_container_hosts','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.92"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized AZP to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-093"
+#   ansible_host_name: "azp_docker_host_093.example.net"
+#   ansible_host_group: ['docker_hosts','azp_container_hosts','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.93"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized SonarQube (and dependencies; PostgreSQL) to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-local-094"
+#   ansible_host_name: "sonarqube_docker_host_094.example.net"
+#   ansible_host_group: ['docker_hosts','devops_services_container_hosts','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "10.100.60.94"
+
+#######################################################
+# END
+# Local VNet
+# example.net
+#
+#######################################################
+
+#######################################################
+#
+# Remote VNet
+# example.com
+#
+#######################################################
+
+# # Provision as AD/DNS Server (Windows Domain Controller) 
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard-core
+# - vagrant_host_name: "win2019-remote-009"
+#   ansible_host_name: "dc_009.example.com"
+#   ansible_host_group: ['ad_domain_controllers','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard-core"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "3072"
+#   vagrant_vcpu: "2"
+#   remote_net_ip_addr: "192.168.60.09"
+
+# # Provision as MSSQL Server on Linux
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-030"
+#   ansible_host_name: "mssql2017_030.example.com"
+#   ansible_host_group: ['mssql_linux_servers','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "4096"
+#   vagrant_vcpu: "2"
+#   remote_net_ip_addr: "192.168.60.30"
+
+# # Provision as MSSQL Server  
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-remote-031"
+#   ansible_host_name: "mssql2017_031.example.com"
+#   ansible_host_group: ['mssql_win_servers','consul_win_agents','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "3072"
+#   vagrant_vcpu: "2"
+#   remote_net_ip_addr: "192.168.60.31"
+
+# # Provision as MSSQL Server   
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard-core
+# - vagrant_host_name: "win2019-remote-032"
+#   ansible_host_name: "mssql2017_032.example.com"
+#   ansible_host_group: ['mssql_win_servers','consul_win_agents','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard-core"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "3072"
+#   vagrant_vcpu: "2"
+#   remote_net_ip_addr: "192.168.60.32"
+
+# # Provision as Kong Application Gateway Server
+# # Application gateway in front of dotNET Core Services hosts (Linux and IIS)
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-040"
+#   ansible_host_name: "api_gateway_040.example.com"
+#   ansible_host_group: ['api_gateway_servers','kong_api_gateway_servers','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.40"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized dotNet Core Services to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-041"
+#   ansible_host_name: "dnc_docker_host_041.example.com"
+#   ansible_host_group: ['docker_hosts','dnc_api_container_hosts','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.41"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized dotNet Core Services to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-042"
+#   ansible_host_name: "dnc_docker_host_042.example.com"
+#   ansible_host_group: ['docker_hosts','dnc_api_container_hosts','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.42"
+
+# # Provision as IIS Server - Hosts dotNET Core Services  
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-remote-043"
+#   ansible_host_name: "dotnetcore_iis_043.example.com"
+#   ansible_host_group: ['consul_agents','dnc_api_iis_servers','iis_servers','consul_win_agents','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   remote_net_ip_addr: "192.168.60.43"  
+
+# # Provision as IIS Server - Hosts dotNET Core Services  
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-remote-044"
+#   ansible_host_name: "dnc_iis_044.example.com"
+#   ansible_host_group: ['consul_agents','dnc_api_iis_servers','iis_servers','consul_win_agents','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard-core"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   remote_net_ip_addr: "192.168.60.44"    
+
+# # Provision as HA Proxy server
+# # Load balance Legacy Web Servers
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-060"
+#   ansible_host_name: "legacy_web_lb_060.example.com"
+#   ansible_host_group: ['haproxy_servers','legacy_web_load_balancers','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.60"
+
+# # Provision as IIS Server - Hosts Website (Legacy dotNET Framework) 
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-remote-061"
+#   ansible_host_name: "dotnetfw_iis_061.example.com"
+#   ansible_host_group: ['consul_win_agents','legacy_web_iis_servers','iis_servers','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vb_box: "gusztavvargadr/windows-server"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_box_version: "1809.0.1907-standard"
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   remote_net_ip_addr: "192.168.60.61"  
+
+# # Provision as IIS Server - Hosts Website (Legacy dotNET Framework) 
+# # https://app.vagrantup.com/gusztavvargadr/boxes/windows-server/versions/1809.0.1907-standard
+# - vagrant_host_name: "win2019-remote-062"
+#   ansible_host_name: "dotnetfw_iis_062.example.com"
+#   ansible_host_group: ['consul_win_agents','legacy_web_iis_servers','iis_servers','windows_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "gusztavvargadr/windows-server"
+#   vagrant_box_version: "1809.0.1907-standard-core"
+#   #vagrant_box_url: 
+#   os_family: windows
+#   vagrant_gui_mode: false
+#   vagrant_ram: "2048"
+#   vagrant_vcpu: "2"
+#   remote_net_ip_addr: "192.168.60.62" 
+
+# # Provision as HA Proxy server
+# # Load balance Batch Servers
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-070"
+#   ansible_host_name: "batch_lb_070.example.com"
+#   ansible_host_group: ['haproxy_servers','batch_load_balancers','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.70"
+
+# # Provision as Consul Server Agent
+# # Consul Server (Server #1 - Bootstrap)
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-081"
+#   ansible_host_name: "consul_081.example.com"
+#   ansible_host_group: ['consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.81"
+
+# # Provision as Consul Server Agent
+# # Consul Server (Server #2)
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-082"
+#   ansible_host_name: "consul_082.example.com"
+#   ansible_host_group: ['consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.82"
+
+# # Provision as Consul Server Agent
+# # Consul Server (Server #3)
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-083"
+#   ansible_host_name: "consul_083.example.com"
+#   ansible_host_group: ['consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.83"
+
+# # Provision as Vault Server
+# # Use Consul Servers as datastore backends
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-084"
+#   ansible_host_name: "vault_084.example.com"
+#   ansible_host_group: ['vault_servers','linux_hosts','consul_linux_agents']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.84"
+
+# # Provision as Vault Server
+# # Use Consul Servers as datastore backends
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-085"
+#   ansible_host_name: "vault_085.example.com"
+#   ansible_host_group: ['vault_servers','linux_hosts','consul_linux_agents']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.85"
+
+# # Provision as Vault Server
+# # Use Consul Servers as datastore backends
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-086"
+#   ansible_host_name: "vault_086.example.com"
+#   ansible_host_group: ['vault_servers','linux_hosts','consul_linux_agents']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   remote_net_ip_addr: "192.168.60.86"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized Micronaut Java Services to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-091"
+#   ansible_host_name: "micronaut_docker_host_091.example.net"
+#   ansible_host_group: ['docker_hosts','micronaut_services','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "192.168.60.91"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized Micronaut Java Services to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-092"
+#   ansible_host_name: "micronaut_docker_host_092.example.net"
+#   ansible_host_group: ['docker_hosts','micronaut_services','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "192.168.60.92"
+
+# # Provision as Linux Docker host (deploy containerized services)
+# # Deploy containerized AZP to this host
+# # https://app.vagrantup.com/centos/boxes/7    
+# - vagrant_host_name: "centos7-remote-093"
+#   ansible_host_name: "azp_docker_host_093.example.net"
+#   ansible_host_group: ['docker_hosts','micronaut_services','consul_linux_agents','linux_hosts']
+#   vagrant_role: "remote-node"
+#   vagrant_vb_box: "centos/7"
+#   #vagrant_box_version: 
+#   #vagrant_box_url: 
+#   os_family: linux
+#   vagrant_gui_mode: false
+#   vagrant_ram: "1024"
+#   vagrant_vcpu: "1"
+#   local_net_ip_addr: "192.168.60.93"
+
+#######################################################
+# END
+# Remote VNet
+# example.com
+#
+#######################################################
